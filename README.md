@@ -43,5 +43,15 @@ dependencyResolutionManagement {
 }
 
 implementation 'com.github.appnapps:SnackX:v1.1.0'
+```
+
+## 🎞 Animation Styles
+
+| Style | Description |
+|-------|-------------|
+| `FADE` | Smooth fade in/out |
+| `SLIDE` | Slide from top or bottom |
+| `SCALE` | Zoom in from large → normal, then zoom out |  ← ✅ 추가
+
 
 
