@@ -12,9 +12,11 @@ class MainActivity : ComponentActivity() {
             message = "저장되었습니다!",
             iconResId = R.drawable.ic_check,
             duration = 2500,
-            position = SnackX.Position.TOP,
-            backgroundColor = Color.DKGRAY,
-            textColor = Color.WHITE
+            position = SnackX.Position.BOTTOM,
+            backgroundColor = Color.BLUE,
+            textColor = Color.WHITE,
+            animation = SnackX.AnimationStyle.FADE,
+            animationDuration = 5000L // 나타남/사라짐 애니메이션 속도 조절
         )
     }
 }

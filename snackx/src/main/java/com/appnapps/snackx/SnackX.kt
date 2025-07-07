@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 
 object SnackX {
     enum class Position { TOP, BOTTOM }
+    enum class AnimationStyle { FADE, SLIDE }  // 👈 여기에 함께 선언
 
     fun show(
         context: Context,
@@ -20,7 +21,9 @@ object SnackX {
         duration: Long = 2000,
         position: Position = Position.BOTTOM,
         backgroundColor: Int = Color.BLACK,
-        textColor: Int = Color.WHITE
+        textColor: Int = Color.WHITE,
+        animation: AnimationStyle = AnimationStyle.FADE,
+        animationDuration: Long = 300L // 👈 추가
     ) {
         val activity = context as? Activity ?: return
         val inflater = LayoutInflater.from(context)
@@ -50,13 +53,36 @@ object SnackX {
 
         rootView.addView(view, layoutParams)
 
-        view.alpha = 0f
-        view.animate().alpha(1f).setDuration(300).start()
+        // 애니메이션 in
+        when (animation) {
+            AnimationStyle.FADE -> {
+                view.alpha = 0f
+                view.animate().alpha(1f).setDuration(animationDuration).start()
+            }
+            AnimationStyle.SLIDE -> {
+                view.translationY = if (position == Position.BOTTOM) 100f else -100f
+                view.alpha = 0f
+                view.animate().translationY(0f).alpha(1f).setDuration(animationDuration).start()
+            }
+        }
 
+        // 애니메이션 out
         Handler(Looper.getMainLooper()).postDelayed({
-            view.animate().alpha(0f).setDuration(300).withEndAction {
-                rootView.removeView(view)
-            }.start()
+            when (animation) {
+                AnimationStyle.FADE -> {
+                    view.animate().alpha(0f).setDuration(animationDuration).withEndAction {
+                        rootView.removeView(view)
+                    }.start()
+                }
+                AnimationStyle.SLIDE -> {
+                    view.animate()
+                        .translationY(if (position == Position.BOTTOM) 100f else -100f)
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .withEndAction { rootView.removeView(view) }
+                        .start()
+                }
+            }
         }, duration)
     }
 
