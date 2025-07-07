@@ -1,23 +1,47 @@
 # SnackX 🍩
 
-A beautiful customizable toast alternative for Android apps.
+A beautiful and customizable toast/snackbar alternative for Android apps.  
+SnackX offers top or bottom positioning, icon support, background/text customization, animation styles, and more.
+
+---
 
 ## ✨ Features
 
-- Easy to use static `show()` method
-- Top or bottom positioning
-- Optional icons
-- Auto dismiss with animation
-- Custom background and text colors
+- ✅ Easy-to-use static `show()` method
+- 🎯 Top or bottom positioning
+- 🖼 Optional icons
+- 🎨 Custom background and text colors
+- 🔁 Fade or Slide animation styles
+- ⏱ Customizable animation duration
+- 🕐 Auto dismiss with timer
 
-## 🚀 Usage
+---
+
+## 🚀 Usage Example
 
 ```kotlin
 SnackX.show(
     context = this,
     message = "Action completed!",
     iconResId = R.drawable.ic_check,
-    duration = 2500,
-    position = SnackX.Position.TOP
+    duration = 2500, // visible time in milliseconds
+    position = SnackX.Position.TOP,
+    backgroundColor = Color.DKGRAY,
+    textColor = Color.WHITE,
+    animation = SnackX.AnimationStyle.SLIDE, // or FADE
+    animationDuration = 600L // appear/disappear animation speed
 )
+
+
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven(url = "https://jitpack.io")
+    }
+}
+
+implementation 'com.github.appnapps:SnackX:v1.1.0'
+
 
