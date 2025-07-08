@@ -54,4 +54,9 @@ implementation 'com.github.appnapps:SnackX:v1.1.0'
 | `SCALE` | Zoom in from large → normal, then zoom out |  ← ✅ 추가
 
 
+## 🎆 FireworkButton Demo
+
+Click to celebrate with fireworks!
+
+<img src="https://github.com/appnapps/FireworkButton/docs/firework_demo.gif" width="320"/>
 
