@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.os.Looper
 import android.view.*
@@ -12,7 +13,7 @@ import androidx.core.content.ContextCompat
 
 object SnackX {
     enum class Position { TOP, BOTTOM }
-    enum class AnimationStyle { FADE, SLIDE }  // 👈 여기에 함께 선언
+    enum class AnimationStyle { FADE, SLIDE, SCALE, BOUNCE }  // 👈 여기에 함께 선언
 
     fun show(
         context: Context,
@@ -40,7 +41,9 @@ object SnackX {
             iconView.visibility = View.VISIBLE
         }
 
-        view.setBackgroundColor(backgroundColor)
+        // ✅ Drawable에서 배경색만 변경
+        val background = view.background as? GradientDrawable
+        background?.setColor(backgroundColor)
 
         val rootView = activity.findViewById<ViewGroup>(android.R.id.content)
         val layoutParams = FrameLayout.LayoutParams(
@@ -54,34 +57,12 @@ object SnackX {
         rootView.addView(view, layoutParams)
 
         // 애니메이션 in
-        when (animation) {
-            AnimationStyle.FADE -> {
-                view.alpha = 0f
-                view.animate().alpha(1f).setDuration(animationDuration).start()
-            }
-            AnimationStyle.SLIDE -> {
-                view.translationY = if (position == Position.BOTTOM) 100f else -100f
-                view.alpha = 0f
-                view.animate().translationY(0f).alpha(1f).setDuration(animationDuration).start()
-            }
-        }
+        SnackXAnimator.applyIn(view, animation, animationDuration, position)
 
         // 애니메이션 out
         Handler(Looper.getMainLooper()).postDelayed({
-            when (animation) {
-                AnimationStyle.FADE -> {
-                    view.animate().alpha(0f).setDuration(animationDuration).withEndAction {
-                        rootView.removeView(view)
-                    }.start()
-                }
-                AnimationStyle.SLIDE -> {
-                    view.animate()
-                        .translationY(if (position == Position.BOTTOM) 100f else -100f)
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .withEndAction { rootView.removeView(view) }
-                        .start()
-                }
+            SnackXAnimator.applyOut(view, animation, animationDuration, position) {
+                rootView.removeView(view)
             }
         }, duration)
     }

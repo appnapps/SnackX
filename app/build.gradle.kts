@@ -50,8 +50,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":snackx")) // ✅ 이 줄이 반드시 있어야 함
+    implementation(project(":snackx")) //이 줄이 반드시 있어야 함
+    implementation("com.github.appnapps:FireworkButton:1.0.0")
     implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.activity:activity-compose:1.9.1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
