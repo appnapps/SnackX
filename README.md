@@ -57,5 +57,5 @@ implementation 'com.github.appnapps:SnackX:v1.1.0'
 ## 🎆 SnackX Demo
 
 
-<img src="https://github.com/appnapps/SnackX/docs/SnackX.gif" width="320"/>
+<img src="https://github.com/appnapps/SnackX/blob/main/docs/SnackX.gif" width="320"/>
 
