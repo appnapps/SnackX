@@ -58,5 +58,5 @@ implementation 'com.github.appnapps:SnackX:v1.1.0'
 
 Click to celebrate with fireworks!
 
-<img src="https://github.com/appnapps/FireworkButton/docs/firework_demo.gif" width="320"/>
+<img src="https://github.com/appnapps/FireworkButton/docs/SnackX.gif" width="320"/>
 
